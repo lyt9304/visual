@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+		#main{
+			height:500px;
+            width:500px;
+            background: url("sample.jpg");
+            -moz-background-size:100% 100%;
+            background-size:100% 100%;
+            margin:0px;
+            padding:0px;
+		}
+    </style>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main"></div>
+
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+
+    <script type="text/javascript">
+    	// 生成随机数据
+    	function genData(){
+    		var heatData = [];
+			for (var i = 0; i < 20; ++i) {
+			    heatData.push([
+			        400 + Math.random() * 300,
+			        5 + Math.random() * 10,
+			        Math.random()
+			    ]);
+			}
+			for (var i = 0; i < 100; ++i) {
+			    heatData.push([
+			        100 + Math.random() * 600,
+			        150 + Math.random() * 50,
+			        Math.random()
+			    ]);
+			}
+			for (var i = 0; i < 200; ++i) {
+			    heatData.push([
+			        Math.random() * 1000,
+			        Math.random() * 800,
+			        Math.random() * 0.5
+			    ]);
+			}
+			return heatData;
+    	}
+
+
+    	var dataMap={};
+
+    	for(var i=9;i<12;i++){
+    		dataMap[i]=genData();
+    	}
+
+
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+
+        // 使用
+        require(
+                [
+                    'echarts',
+                    'echarts/chart/heatmap' // 使用柱状图就加载bar模块，按需加载
+                ],
+                function (ec) {
+                    // 基于准备好的dom，初始化echarts图表
+                    var myChart = ec.init(document.getElementById('main'));
+
+                    
+					var option = {
+						timeline:{
+					        data:[
+					            'Fri 09:00','Fri 10:00','Fri 11:00','Fri 12:00'
+					        ],
+					        label : {
+					            formatter : function(s) {
+					                return s
+					            }
+					        },
+					        autoPlay : true,
+					        playInterval : 1000
+					    },
+					    options:[
+					    	{
+					    		title : {
+					                'text':'游乐园人数分布热力图',
+					                'subtext':'Fri 09:00'
+					            },
+							    series : [
+							        {
+							            type : 'heatmap',
+							            data : dataMap[9],
+							            hoverable : false,
+							            minAlpha: 0.5,
+							            valueScale: 2,
+							            opacity: 0.8
+							        }
+							    ]
+					    	},
+					    	{
+					    		title : {'subtext':'Fri 10:00'},
+					            series : [
+					                {'data': dataMap[10]}
+					            ]
+					    	},
+					    	{
+					    		title : {'subtext':'Fri 11:00'},
+					            series : [
+					                {'data': dataMap[11]}
+					            ]
+					    	},
+					    	{
+					    		title : {'subtext':'Fri 12:00'},
+					            series : [
+					                {'data': dataMap[12]}
+					            ]
+					    	}
+					    	
+					    ]
+					};
+                    
+
+                    // 为echarts对象加载数据
+                    myChart.setOption(option);
+                }
+        );
+    </script>
+</body>
+</html>
