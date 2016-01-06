@@ -62,7 +62,7 @@
 							            }
 							        },
 							        type:'number',
-							        autoPlay : true,
+							        // autoPlay : false,
 							        playInterval : 1000
 							    },
 							    options:[
@@ -78,7 +78,7 @@
 									            data : dataMap[9],
 									            hoverable : false,
 									            // minAlpha: 0.5,
-									            valueScale: 0.06,
+									            valueScale: 0.05,
 									            opacity: 0.8
 									        }
 									    ]
@@ -197,47 +197,6 @@
 		}
 		var btn=document.getElementById("btn");
 		btn.addEventListener("click",btnHandler,false);
-		
 	</script>
-    <script type="text/javascript">
-    	// 生成随机数据
-   //  	function genData(){
-   //  		var heatData = [];
-
-			// for (var i = 0; i < 20; ++i) {
-			//     heatData.push([
-			// 	        400 + Math.random() * 300,
-			// 	        5 + Math.random() * 10,
-			// 	        Math.random()
-			//     	]);
-			// }
-			// for (var i = 0; i < 100; ++i) {
-			//     heatData.push([
-			// 		        100 + Math.random() * 600,
-			// 		        150 + Math.random() * 50,
-			// 		        Math.random()
-			// 		]);
-			// }
-			// for (var i = 0; i < 200; ++i) {
-			//     heatData.push([
-			// 	        Math.random() * 1000,
-			// 	        Math.random() * 800,
-			// 	        Math.random() * 0.5
-			// 	   	]);
-			// }
-			// return heatData;
-   //  	}
-
-
-   //  	var dataMap={};
-
-   //  	for(var i=9;i<13;i++){
-   //  		dataMap[i]=genData();
-   //  	}
-
-   		
-
-        
-    </script>
 </body>
 </html>

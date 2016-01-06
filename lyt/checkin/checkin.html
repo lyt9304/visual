@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>check-in规律</title>
+    <style>
+		#main{
+			height:600px;
+            width:1200px;
+            margin:0px;
+            padding:0px;
+		}
+    </style>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main"></div>
+
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+	<script>
+
+		
+
+		require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+
+        // 使用
+        require(
+                [
+                    'echarts',
+                    'echarts/chart/line'
+                ],
+                function (ec) {
+                    // 基于准备好的dom，初始化echarts图表
+                    var myChart = ec.init(document.getElementById('main'));
+
+                    
+					var option = {
+					    title : {
+					        text: 'check-in规律',
+					        // subtext: ''
+					    },
+					    tooltip : {
+					        trigger: 'axis'
+					    },
+					    legend: {
+					        data:['周五','周六','周日']
+					    },
+					    calculable : true,
+					    xAxis : [
+					        {
+					            type : 'category',
+					            boundaryGap : false,
+					            data : ['08:00-08:30','08:30-09:00','09:00-09:30','09:30-10:00','10:00-10:30','10:30-11:00','11:00-11:30','11:30-12:00','12:00-12:30','12:30-13:00','13:00-13:30','13:30-14:00','14:00-14:30','14:30-15:00','15:00-15:30','15:30-16:00','16:00-16:30','16:30-17:00','17:00-17:30','17:30-18:00','18:00-18:30','18:30-19:00','19:00-19:30','19:30-20:00','20:00-20:30','20:30-21:00','21:00-21:30','21:30-22:00','22:00-22:30','22:30-23:00','23:00-23:30','23:30-24:00']
+					        }
+					    ],
+					    yAxis : [
+					        {
+					            type : 'value',
+					            axisLabel : {
+					                formatter: '{value}'
+					            }
+					        }
+					    ],
+					    series : [
+					        {
+					            name:'周五',
+					            type:'line',
+					            data:[96, 306,403, 614,115, 88,99, 443,402, 436,337, 309,371, 702,86, 70,107, 357,387, 299,307, 255,197, 204,104, 109,83, 55,24, 16,0,0],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'}
+					                ]
+					            }
+					        },
+					        {
+					            name:'周六',
+					            type:'line',
+					            data:[194, 504,720, 852,124, 152,203, 508,528, 482,508, 646,554, 1258,165, 110,171, 437,496, 479,426, 267,473, 114,181, 169,134, 77,58, 36,0,0],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'}
+					                ]
+					            }
+					        },
+					        {
+					            name:'周日',
+					            type:'line',
+					            data:[208, 522,697, 1186,177, 137,177, 664,213, 184,187, 187,183, 146,170, 166,128, 205,109, 110,85, 51,52, 23,28, 11,54, 0,0,0],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'}
+					                ]
+					            }
+					        }
+					    ]
+					};
+                    
+
+                    // 为echarts对象加载数据
+                    myChart.setOption(option);
+                }
+        );
+		
+	</script>
+</body>
+</html>
