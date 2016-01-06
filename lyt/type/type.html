@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>游客类型分布</title>
+    <style>
+		#main{
+			height:600px;
+            width:700px;
+            margin:0px;
+            padding:0px;
+		}
+    </style>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main"></div>
+
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+	<script>
+
+		var dataMap={
+			"0":[
+				{'name': 'thrill', 'value': 3115},
+				{'name': 'kiddie', 'value': 208},
+				{'name': 'normal', 'value': 443}, 
+				{'name': 'other', 'value': 91},
+				{'name': 'nothing', 'value': 17}
+			],
+			"1":[
+				{'name': 'thrill', 'value': 5221},
+				{'name': 'kiddie', 'value': 530},
+				{'name': 'normal', 'value': 1327}, 
+				{'name': 'other', 'value': 272},
+				{'name': 'nothing', 'value': 19}
+			],
+			"2":[
+				{'name': 'thrill', 'value': 6130},
+				{'name': 'kiddie', 'value': 615},
+				{'name': 'normal', 'value': 1607}, 
+				{'name': 'other', 'value': 78},
+				{'name': 'nothing', 'value': 21}
+			],
+		}
+
+		require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+
+        // 使用
+        require(
+                [
+                    'echarts',
+                    'echarts/chart/pie'
+                ],
+                function (ec) {
+                    // 基于准备好的dom，初始化echarts图表
+                    var myChart = ec.init(document.getElementById('main'));
+
+                    
+					var option = {
+						timeline:{
+					        data:["Friday","Saturday","Sunday"],
+					        label : {
+					            formatter : function(s) {
+					                return s;
+					            }
+					        },
+					        type:'number',
+					        autoPlay : false,
+					        playInterval : 1000
+					    },
+					    options:[
+					    	{
+					    		title : {
+					                'text':'游客更喜欢乘坐的设施',
+					                'subtext':'周五-共3557人'
+					            },
+					             tooltip : {
+					                trigger: 'item',
+					                formatter: "{a} <br/>{b} : {c} ({d}%)"
+					            },
+					             legend: {
+					                data:['thrill','kiddie','normal','other','nothing']
+					            },
+							    series : [
+							        {
+							        	name:'游客类型分布',
+							            type : 'pie',
+							            center: ['50%', '45%'],
+                    					radius: '50%',
+							            data : dataMap[0],
+							            hoverable : false,
+							            minAlpha: 0.5,
+							            valueScale: 0.2,
+							            opacity: 0.8
+							        }
+							    ]
+					    	},
+					    	{
+					    		title : {'subtext':'周六-共6411人'},
+					            series : [
+					                {
+					                	name:'游客类型分布',
+							            type : 'pie',
+							            data: dataMap[1]
+							        }
+					            ]
+					    	},
+					    	{
+					    		title : {'subtext':'周日-共7569人'},
+					            series : [
+					                {
+					                	name:'游客类型分布',
+							            type : 'pie',
+							            data: dataMap[2]
+							        }
+					            ]
+					    	}
+					    ]
+					};
+                    
+
+                    // 为echarts对象加载数据
+                    myChart.setOption(option);
+                }
+        );
+		
+	</script>
+</body>
+</html>

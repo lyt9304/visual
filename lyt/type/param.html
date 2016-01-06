@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>游客特征值分析</title>
+    <style>
+		#Ttime,#Etime,#ETrate{
+			height:600px;
+            width:1200px;
+            margin:0px;
+            padding:0px;
+		}
+    </style>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="Ttime"></div>
+    <div id="Etime"></div>
+    <div id="ETrate"></div>
+
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+	<script>
+
+		require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+
+        // 使用
+        require(
+                [
+                    'echarts',
+                    'echarts/chart/bar'
+                ],
+                function (ec) {
+                    // 基于准备好的dom，初始化echarts图表
+                    var ttimeChart = ec.init(document.getElementById('Ttime'));
+                    var etimeChart = ec.init(document.getElementById('Etime'));
+                    var etrateChart = ec.init(document.getElementById('ETrate'));
+
+					var ttimeoption = {
+					    title : {
+					        text: '园内时间分布'
+					    },
+					    tooltip : {
+					        trigger: 'axis'
+					    },
+					    legend: {
+					        data:['周五','周六','周日']
+					    },
+					    calculable : true,
+					    xAxis : [
+					        {
+					            type : 'category',
+					            data : ['0-99','100-199','200-299','300-399','400-499','500-599','600-699','700-799','800-899']
+					        }
+					    ],
+					    yAxis : [
+					        {
+					            type : 'value'
+					        }
+					    ],
+					    series : [
+					        {
+					            name:'周五',
+					            type:'bar',
+					            data:[0, 2, 37, 142, 50, 94, 183, 1732, 1317],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'},
+					                    {type : 'min', name: '最小值'},
+					                    {name : '平均值', value : 745.83, xAxis: 7, yAxis: 4000,symbolSize:25,symbol:"emptyDiamond"}
+					                ]
+					            }
+					        },
+					        {
+					            name:'周六',
+					            type:'bar',
+					            data:[2, 2, 95, 180, 101, 98, 510, 2924, 2499],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'},
+					                    {type : 'min', name: '最小值'},
+					                    {name : '平均值', value : 754.13, xAxis: 7, yAxis: 4000,symbolSize:25,symbol:"emptyDiamond"}
+					                ]
+					            }
+					        }
+					        ,
+					        {
+					            name:'周日',//ok
+					            type:'bar',
+					            data:[0, 4, 167, 179, 180, 39, 571, 3516, 2913],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'},
+					                    {type : 'min', name: '最小值'},
+					                    {name : '平均值', value : 750.64, xAxis: 7, yAxis: 4000,symbolSize:25,symbol:"emptyDiamond"}
+					                ]
+					            }
+					        }
+					    ]
+					};
+                    
+
+                    var etimeoption = {
+					    title : {
+					        text: '游玩时间分布'
+					    },
+					    tooltip : {
+					        trigger: 'axis'
+					    },
+					    legend: {
+					        data:['周五','周六','周日']
+					    },
+					    calculable : true,
+					    xAxis : [
+					        {
+					            type : 'category',
+					            data : ['0-99','100-199','200-299','300-399','400-499','500-599','600-699']
+					        }
+					    ],
+					    yAxis : [
+					        {
+					            type : 'value'
+					        }
+					    ],
+					    series : [
+					        {
+					            name:'周五',
+					            type:'bar',
+					            data:[157, 871, 1427, 849, 233, 20, 0],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'},
+					                    {type : 'min', name: '最小值'},
+					                    {name : '平均值', value : 255.75, xAxis: 2, yAxis: 3000,symbolSize:25,symbol:"emptyDiamond"}
+					                ]
+					            }
+					        },
+					        {
+					            name:'周六',
+					            type:'bar',
+					            data:[111, 890, 1878, 1832, 1310, 353, 37],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'},
+					                    {type : 'min', name: '最小值'},
+					                    {name : '平均值', value : 321.17, xAxis: 3, yAxis: 3000,symbolSize:25,symbol:"emptyDiamond"}
+					                ]
+					            }
+					        }
+					        ,
+					        {
+					            name:'周日',
+					            type:'bar',
+					            data:[142, 1200, 2498, 2166, 1066, 465, 32],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'},
+					                    {type : 'min', name: '最小值'},
+					                    {name : '平均值', value : 307.24, xAxis: 3, yAxis: 3000,symbolSize:25,symbol:"emptyDiamond"}
+					                ]
+					            }
+					        }
+					    ]
+					};
+                    
+
+                    var etrateoption = {
+					    title : {
+					        text: '游玩时间/园内时间比值'
+					    },
+					    tooltip : {
+					        trigger: 'axis'
+					    },
+					    legend: {
+					        data:['周五','周六','周日']
+					    },
+					    calculable : true,
+					    xAxis : [
+					        {
+					            type : 'category',
+					            data : ['0%-10%','10%-20%','20%-30%','30%-40%','40%-50%','50%-60%','60%-70%','70%-80%','80%-90%']
+					        }
+					    ],
+					    yAxis : [
+					        {
+					            type : 'value'
+					        }
+					    ],
+					    series : [
+					        {
+					            name:'周五',
+					            type:'bar',
+					            data: [55, 304, 1018, 1082, 740, 310, 48, 0, 0],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'},
+					                    {type : 'min', name: '最小值'},
+					                    {name : '平均值', value : 0.34, xAxis: 3, yAxis: 3000,symbolSize:25,symbol:"emptyDiamond"}
+					                ]
+					            }
+					        },
+					        {
+					            name:'周六',
+					            type:'bar',
+					            data:[32, 287, 917, 1550, 1560, 1373, 489, 196, 7],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'},
+					                    {type : 'min', name: '最小值'},
+					                    {name : '平均值', value : 0.43, xAxis: 4, yAxis: 3000,symbolSize:25,symbol:"emptyDiamond"}
+					                ]
+					            }
+					        }
+					        ,
+					        {
+					            name:'周日',
+					            type:'bar',
+					            data:[60, 380, 1350, 2025, 1652, 1181, 720, 188, 13],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'},
+					                    {type : 'min', name: '最小值'},
+					                    {name : '平均值', value : 0.41, xAxis: 4, yAxis: 3000,symbolSize:25,symbol:"emptyDiamond"}
+					                ]
+					            }
+					        }
+					    ]
+					};
+                    
+                    
+                    
+
+                    // 为echarts对象加载数据
+                    ttimeChart.setOption(ttimeoption);
+                    etimeChart.setOption(etimeoption);
+                    etrateChart.setOption(etrateoption);
+
+                }
+        );
+		
+	</script>
+</body>
+</html>

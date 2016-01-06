@@ -2,8 +2,6 @@ import copy
 
 # data: 2014-6-06 08:00:16,1591741,check-in,63,99
 
-print "hello"
-
 def getHour(data):
 	res=data.split(" ")[1].split(":")[0]
 	return int(res)

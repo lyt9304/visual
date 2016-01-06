@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body{
+            margin:0px;
+        }
+
+        #canvas-box{
+            height:100px;
+            width:100px;
+            background: url("park.jpg");
+            -moz-background-size:100% 100%;
+            background-size:100% 100%;
+            /*background-position: center;
+            background-repeat: no-repeat;*/
+            /*background-attachment: fixed;*/
+            margin:0px;
+            padding:0px;
+        }
+
+        /*#tool-box{
+            position: fixed;
+            right:20px;
+            top:20px;
+        }*/
+
+        #dot{
+        	height:2px;
+        	width: 2px;
+        	border-radius: 50%;
+        	position: fixed;
+        	top:0px;
+        	left:0px;
+        	background: black;        
+        }
+    </style>
+</head>
+<body>
+
+	<div id="canvas-box">
+
+    </div>
+
+    <div id="dot"></div>
+
+    <div id="tool-box">
+        <button id="collect">下一个</button>
+    </div>
+</body>
+
+<script>
+
+	var data=[[0, 33, 0, 67], [99, 23, 99, 77], [63, 1, 63, 99], [17, 33, 17, 67], [82, 20, 82, 80], [79, 11, 79, 89], [87, 19, 87, 81], [81, 23, 81, 77], [23, 46, 23, 54], [16, 34, 16, 66], [48, 13, 48, 87], [32, 67, 32, 33], [87, 37, 87, 63], [60, 63, 60, 37], [76, 12, 76, 88], [47, 89, 47, 11], [43, 44, 43, 56], [73, 21, 73, 79], [79, 13, 79, 87], [28, 34, 28, 66], [86, 56, 86, 44], [34, 32, 34, 68], [45, 76, 45, 24], [38, 10, 38, 90], [27, 85, 27, 15], [26, 41, 26, 59], [69, 56, 69, 44], [16, 51, 16, 49], [87, 52, 87, 48], [17, 57, 17, 43], [78, 52, 78, 48], [43, 22, 43, 78], [50, 43, 50, 57], [83, 12, 83, 88], [85, 14, 85, 86], [73, 16, 73, 84], [78, 63, 78, 37], [67, 63, 67, 37], [42, 63, 42, 37], [92, 19, 92, 81], [6, 57, 6, 43], [76, 78, 76, 22]];
+
+	
+
+	// var map={
+	// 	"Thrill Rides":[],
+	// 	"Kiddie Rides":[],
+	// 	"Rides For Everyone":[],
+	// 	"Shows & Entertainment":[],
+	// 	"Information & Assistance":[],
+	// 	"Shopping":[],
+	// 	"Restrooms":[],
+	// 	"Beer Gardens":[],
+	// 	"Food":[],
+	// 	"Entrance":[]
+	// }
+
+
+	var factory={
+		"1":"Thrill Rides",
+		"2":"Thrill Rides",
+		"3":"Thrill Rides",
+		"4":"Thrill Rides",
+		"5":"Thrill Rides",
+		"6":"Thrill Rides",
+		"7":"Thrill Rides",
+		"8":"Thrill Rides",
+		"81":"Thrill Rides",
+		"9":"Kiddie Rides",
+		"10":"Kiddie Rides",
+		"11":"Kiddie Rides",
+		"12":"Kiddie Rides",
+		"13":"Kiddie Rides",
+		"14":"Kiddie Rides",
+		"15":"Kiddie Rides",
+		"16":"Kiddie Rides",
+		"17":"Kiddie Rides",
+		"18":"Kiddie Rides",
+		"19":"Kiddie Rides",
+		"20":"Rides For Everyone",
+		"21":"Rides For Everyone",
+		"22":"Rides For Everyone",
+		"23":"Rides For Everyone",
+		"24":"Rides For Everyone",
+		"25":"Rides For Everyone",
+		"26":"Rides For Everyone",
+		"27":"Rides For Everyone",
+		"28":"Rides For Everyone",
+		"29":"Rides For Everyone",
+		"30":"Rides For Everyone",
+		"31":"Rides For Everyone",
+		"32":"Shows & Entertainment",
+		"61":"Shows & Entertainment",
+		"63":"Shows & Entertainment",
+		"64":"Shows & Entertainment",
+		"60":"Information & Assistance",
+		"62":"Information & Assistance",
+		"40":"Shopping",
+		"41":"Shopping",
+		"42":"Shopping",
+		"43":"Shopping",
+		"44":"Shopping",
+		"45":"Shopping",
+		"46":"Shopping",
+		"47":"Shopping",
+		"48":"Shopping",
+		"49":"Restrooms",
+		"50":"Restrooms",
+		"51":"Restrooms",
+		"52":"Restrooms",
+		"65":"Restrooms",
+		"66":"Restrooms",
+		"67":"Restrooms",
+		"33":"Beer Gardens",
+		"34":"Beer Gardens",
+		"35":"Food",
+		"36":"Food",
+		"37":"Food",
+		"38":"Food",
+		"39":"Food",
+		"53":"Food",
+		"54":"Food",
+		"55":"Food",
+		"56":"Food",
+		"57":"Food",
+		"58":"Food",
+		"59":"Food",
+		"0":"Entrance"
+	}
+	var btn=document.getElementById("collect");
+
+	var i=0;
+	var len=data.length;
+
+	btn.addEventListener("click",function(){
+		// var xv=document.getElementById("xaxis").value;
+		// var yv=document.getElementById("yaxis").value;
+
+		if(i<len){
+			var xv=data[i][0];
+			var yv=data[i][1];
+			var x=data[i][2];
+			var y=data[i][3];
+			
+			var dot=document.getElementById("dot");
+			dot.style.top=yv+"px";
+			dot.style.left=xv+"px";
+
+			var n=prompt("Please enter number");
+			if(n!=null & n!=""){
+				map[factory[n]].push([x,y]);
+			}
+			i++;
+		}else{
+			alert("over!");
+			console.log(map);
+			console.log(i);
+		}
+	},false);
+</script>
+</html>
